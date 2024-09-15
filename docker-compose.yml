@@ -22,7 +22,7 @@ services:
             - './:/var/www/html'
         networks:
             - sail
-            - proxy # adicionar a rede do traefik
+            - local-dev # adicionar a rede do traefik
         
         depends_on:
             - mysql
@@ -44,13 +44,13 @@ services:
             - 'traefik.http.routers.example-app.tls=true'
 
             # Definir o serviço que será utilizado pelo router
-            - 'traefik.http.routers.example-app.service=laravel.test@docker'  # Certifique-se que "laravel.test" é o nome correto do seu serviço
+            - 'traefik.http.routers.example-app.service=example_app@docker'  # Certifique-se que "example_app" é o nome correto do seu serviço
 
             # Definir a rede onde o Traefik pode encontrar este serviço
-            - 'traefik.docker.network=proxy'
+            - 'traefik.docker.network=local-dev'
 
             # Definir a porta do container que o Traefik deve direcionar o tráfego
-            - 'traefik.http.services.laravel.test.loadbalancer.server.port=80'
+            - 'traefik.http.services.example_app.loadbalancer.server.port=80'
              
     mysql:
         image: 'mysql/mysql-server:8.0'
@@ -130,7 +130,7 @@ networks:
     sail:
         driver: bridge
     #adiciona rede do traefik 
-    proxy:
+    local-dev:
         external: true
         
 
