@@ -22,7 +22,7 @@ services:
             - './:/var/www/html'
         networks:
             - sail
-            - local-dev # adicionar a rede do traefik
+            - web-local # adicionar a rede do traefik
         
         depends_on:
             - mysql
@@ -130,7 +130,7 @@ networks:
     sail:
         driver: bridge
     #adiciona rede do traefik 
-    local-dev:
+    web-local:
         external: true
         
 
